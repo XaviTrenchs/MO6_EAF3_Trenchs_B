@@ -3,8 +3,8 @@ var config = {
     scale:{
         mode:Phaser.Scale.FIT, // escalat automatic
         autoCenter:Phaser.Scale.CENTER_BOTH, //centrat
-        width:800,
-        height:600,
+        width:1920,
+        height:1080,
     },
     physucs:{
         default:"arcade",
@@ -14,7 +14,7 @@ var config = {
         }
     },
 
-   
+   scene:[pantalla1]
 
 }
 var game = new Phaser.Game(config)
