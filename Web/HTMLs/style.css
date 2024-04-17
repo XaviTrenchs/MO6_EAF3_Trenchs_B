@@ -1,3 +1,106 @@
-body {
-    background: greenyellow;
-}
+
+
+
+    #contenidor{
+        width:70%;
+        width: 1100px;
+        margin: 0px auto;
+
+    }
+    header{
+        background: rgb(41, 63, 88);
+        height: 50px;
+        width: 100%;
+        text-align: center;
+        line-height: 50px;
+        font-weight: bold;
+        
+        
+    }
+    h1{ font-family:Georgia, serif;
+        font-size: 40px;
+        color:white;
+        
+      }
+      h2{font-size: 15px;
+        color: white}
+      ul#menu li{
+        margin: 0px 0px 0px 10px;
+         padding: 0;
+         width:30%;
+         height:30px;
+         padding:5px 0px 0px 10px;
+         list-style: none;
+         display: inline-block;
+         background-color:rgb(121, 149, 209);
+         flex-direction: column;
+         text-decoration: none;
+         text-align: center;
+         font-size: 20px;
+          color:white;
+       }
+
+       #formulari{ 
+               
+        padding:0;
+        float:left;
+        width: 65%;
+        background:  rgb(26, 26, 44);
+        text-align: center;
+        height: 500px;
+        border:3px solid white;
+        font-size: 12px;
+        color:white;}
+        
+      #contenido{
+        float:left;
+        background:  rgb(26, 26, 44);
+        text-align: center;
+        height: 500px;
+        width: 750px;
+        border:3px solid white;
+         
+      } 
+      ul 
+        { 
+          list-style: none;
+          font-size: 12px;
+       }
+
+      aside{
+        float:left;
+        width:30%;
+        text-align: center;
+        height: 500px;
+        border:3px solid white;
+        background-color: rgb(26, 26, 44);
+         font-family:Georgia, serif;
+            font-size: 15px;
+            color:white;
+            line-height: 50px;
+          
+
+      } 
+      h3{ text-align: center;
+        }
+      h5{ text-align: center;
+        }
+
+   
+   body {
+    background: rgb(28, 39, 59);
+    font-family:Georgia, serif;
+    color:rgb(240, 238, 238);
+    font-weight: bold;
+    
+    fieldset {
+      width: 360px;
+      box-sizing: border-box;
+      margin-left: 180px;
+      border: 1px solid #999;
+      background-color:#3a508d;
+      font-family:Georgia, serif;
+      font-size: 15px;
+      color:white;
+      line-height: 15px;}
+    }

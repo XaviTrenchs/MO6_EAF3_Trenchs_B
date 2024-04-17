@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacte</title>
+  >
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="contenidor">
+
+
+    <header>
+      <h1>Araku</h1>
+    </header>
+
+    <nav><!--navegables o navegadors-->
+      <ul id="menu"><!--llista desordenada-->
+        <li><a href="#">Idioma</a></li>
+        <li><a href="videojoc.html">Juga</a></li>
+        <li><a href="Index.html">Inici</a></li>
+
+      </ul>
+
+    </nav>
+
+    <section id="formulari">
+      <form method="post">
+        <h2>Formulari de contacte</h2>
+        <div>
+          <input type="text" name="nomUsuari" value="" placeholder="Nom:" required />
+        </div>
+        <br>
+        <div>
+          <input type="text" name="cognomUsuari" value="" placeholder="Cogom:" required/>
+        </div>
+        <br>
+        <div>
+          <input type="text" name="adreça" value="" placeholder="Adreça" required/>
+        </div>
+        <br>
+        <label for="ciutat">Ciutat</label>
+        <select name="ciutat" id="ciutat" required>
+          <option value="Barcelona">Barcelona</option>
+          <option value="Tarragona">Tarragona</option>
+          <option value="Lleida">Lleida</option>
+          <option value="Girona">Girona</option>
+        </select>
+        <p>Data de naixement</p>
+          
+          <input type="date" name="Data" id="data" required>
+
+          <div>
+            <fieldset>
+            <legend>Sexe</legend>
+
+            <ul>
+              <li>
+                <label for="title_1">
+                  <input type="radio" id="title_1" name="text" value="A">
+                  No binari
+                </label>
+              </li>
+              <li>
+                <label for="title_2">
+                  <input type="radio" id="title_2" name="title" value="K">
+                  Dona
+                </label>
+              </li>
+              <li>
+                <label for="title_3">
+                  <input type="radio" id="title_3" name="title" value="Q">
+                  Home
+                
+                </label>
+              </li>
+            </ul>
+          </fieldset>
+          </div>
+        </select>
+        <br>
+        <div>
+          <input type="email" name="correu" id="correu" placeholder="Adreça electrònica" required>
+        </div><br>
+        <input type="password" name="nom" id="nom" placeholder="Contrasenya" required>
+        <br>
+        <input type="checkbox" value="condicions" name="condicions" id="condicions" required/> He llegit i accepto les
+        condicions.
+        <p> <button type="submit">Enviar el formulari</button> </p>
+      </form>
+
+    </section>
+
+    <aside><!--panell lateral-->
+      <h3>
+        <img src="Imatges/Caratula_joc.png" width="290" height="365" alt="">
+
+        <p>Caràtula del joc </p>
+      </h3>
+    </aside>
+
+    <footer> Desenvolupat per Xavier Trenchs al calurós Abril del 2024 a Vilassar de mar </footer>
+  </div>
+
+</body>
+
+</html>

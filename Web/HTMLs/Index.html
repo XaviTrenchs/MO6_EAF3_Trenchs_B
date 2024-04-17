@@ -1,8 +1,8 @@
 <!doctype html>
 
-<html lang="ca"> <!-per triar idioma->
+<html lang="ca"> <!--per triar idioma-->
 <head>
-  <meta charset="utf-8"><!-codi de caracters estandars->
+  <meta charset="utf-8"> <!--codi de caracters estandars-->
 
   <title>Araku</title>
   <meta name="description" content="Exemple de la primera pàgina web">
@@ -11,18 +11,56 @@
   <link rel="stylesheet" href="style.css">
 
 </head>
-<ul id="menu">
-  <li><a href="#">Araku</a></li>
-  <li><a href="#">Jugar</a></li>
-  <li><a href="#">Controls</a></li>
-  <li><a href="#">Canviar idioma</a></li>
- 
-</ul>
-
 <body>
-  <img src="Imatges/Caratula_joc.png" width="290" height="365" alt="">
+  
+
+  <div id="contenidor"><!--definim espai-->
+
+    <header><!--capçalera visible-->
+        <h1>Araku</h1>
+    </header>
+
+    <nav><!--navegables o navegadors-->
+      <ul id="menu"><!--llista desordenada-->
+        <li><a href="#">Idioma</a></li>
+        <li><a href="videojoc.html">Juga</a></li>
+        <li><a href="contacte.html">Registrat</a></li>
+       
+      </ul>
+
+    </nav>
+
+    <section id="contenido"><!--secció amb contingut-->
+
+      <article class="article">
+        <h2>Ja disponible</h2>
+        <p>Pots jugar-hi en qualsevol dispositiu.</p>
+      </article>
+
+      <article class="article">
+        <h2>Un viatje interdimensional</h2>
+        <p>Text del article</p>
+      </article>
+
+
+    </section>
+
+    <aside><!--panell lateral-->
+      <h3>
+      <img src="Imatges/Caratula_joc.png" width="290" height="365" alt="">
  
-  <p>Caràtula del joc </p>
+      <p>Caràtula del joc </p>
+    </h3>
+    </aside>
+
+    <footer> Desenvolupat per Xavier Trenchs al calurós Abril del 2024 a Vilassar de mar </footer>
+
+
+  </div>
+
+  
+
+  
 </body>
-<footer> Desenvolupat per Xavier Trenchs al calurós Abril del 2024 a Vilassar de mar </footer>
+
 </html>
