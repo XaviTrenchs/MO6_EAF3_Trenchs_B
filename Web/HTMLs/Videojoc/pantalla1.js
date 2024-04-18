@@ -17,18 +17,19 @@ class pantalla1 extends Phaser.Scene {
         this.anims.create({
             key: "idle",//nom de l'animació
             frames: this.anims.generateFrameNumbers("jugador", { stard: 0, end: 1 }),// fotogrames que implica
-            frameRate: 10,//velocitat
+            frameRate: 2,//velocitat
             repeat: -1,//repeticions (-1vol dir infinitament)
-
+        })
             this.anims.create({
                 key: "caminar",
                 frames: this.anims.generateFrameNumbers("jugador", { stard: 1, end: 5 }),
                 frameRate: 10,
                 repeat: -1,
             })
-        //fons
-        var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
-            //Grups lataformes
+            //fons
+             var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
+
+            //Grups plataformes
             plataformas=this.physics.add.staticGroup();
             plataformas.create(200, 500, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma escalats i amb la caixa escalada i colocada
             plataformas.create(150, 500, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
@@ -65,14 +66,29 @@ class pantalla1 extends Phaser.Scene {
 
             if(cursors.right.isDown) {
             jugador.setVelocityX(200); //si prems dreta el personatge va dreta
+            jugador.anims.play("caminar",true);
+            if(jugador.flipX==true){jugador.x=jugador.x+60};
+            jugador.flipX=false;
+            
+            jugador.setOffset(7, 14);
         }
-            else if (cursors.left.isDown) { jugador.setVelocityX(-200); }//si prems esquerra el personatge va esquerra
-
+            else if (cursors.left.isDown) { 
+            jugador.setVelocityX(-200); //si prems esquerra el personatge va esquerra
+            jugador.anims.play("caminar",true);
+            if(jugador.flipX==false){jugador.x=jugador.x-60};
+            jugador.flipX=true;// inverteix eix X
+            jugador.setOffset(20,14);
+        }
         else { 
             jugador.setVelocityX(0); //si no prems res no es mou
-            jugador.anims
+            jugador.anims.play("idle",true);
+        }
+                
+                
+
+            
         
-        } 
+        
         if (cursors.up.isDown && jugador.body.touching.down) { //si premem adalt el jugador salta amb una força de 600
             jugador.setVelocityY(-600);
         }
