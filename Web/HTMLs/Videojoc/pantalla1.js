@@ -10,10 +10,23 @@ class pantalla1 extends Phaser.Scene {
         this.load.image("plataformas", ".//assets/plataforma.png");//marquem ruta al asset
         this.load.spritesheet("jugador", ".//assets/GraveRobber_walk.png", { frameWidth: 48, frameHeight: 48 });//marquem ruta al jugador i acotem
         this.load.image("moneda", ".//assets/monedes.png");//carreguem i definim nom dels sacs de monedes
-        this.load.spritesheet("enemic", ".//assets/SteamMan_walk.png",{ frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels sacs de monedes
+        this.load.spritesheet("enemic", ".//assets/SteamMan_walk.png",{ frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
+        this.load.audio("salt",".//audio/JEWS HArp 3.WAV");
+        this.load.audio("pick",".//audio/PICK UP.WAV");
+        this.load.image("botoRetry", ".//assets/Reintentar.png");//carreguem i definim botó reiniciar
+        this.load.image("Final", ".//assets/GameOver.png");//carreguem i definim pantalla Game Over
+
+
 
     }
     create() {
+        gameOver=false;
+
+        //audios
+
+        soMoneda=this.sound.add("pick");
+        soSalt=this.sound.add("salt");
+
         //fons
         var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
 
@@ -35,7 +48,10 @@ class pantalla1 extends Phaser.Scene {
 
          enemics.children.iterate(function (enemic){
             enemic.setSize (22, 40);
-            enemic.setOffset(5,8)
+            enemic.setOffset(5,8);
+            enemic.setBounce(1);
+            enemic.setVelocityX(30);
+            enemic.setCollideWorldBounds()
             
         })
 
@@ -81,6 +97,14 @@ class pantalla1 extends Phaser.Scene {
             plataformas.create(250, 500, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
             plataformas.create(100, 500, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
 
+            plataformas.create(300, 600, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma escalats i amb la caixa escalada i colocada
+
+
+            plataformas.create(600, 750, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma escalats i amb la caixa escalada i colocada
+            plataformas.create(550, 750, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
+            plataformas.create(450, 750, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
+            plataformas.create(500, 750, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
+
             plataformas.create(1000, 800, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
             plataformas.create(1100, 800, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
             plataformas.create(1050, 800, "plataformas").setScale(4).setSize(50, 50).setOffset(-20, -20);//fills de plataforma
@@ -98,12 +122,30 @@ class pantalla1 extends Phaser.Scene {
             //teclas
             cursors = this.input.keyboard.createCursorKeys();// li indiquem que farem sevir tecles
 
+            //botons
+
+            finestraOver=this.add.image(920,540,"Final");
+            finestraOver.setScale(1.3);
+            finestraOver.setVisible(false);//amaguem
+
+            botoReiniciar=this.add.image(920,740,"botoRetry");
+            botoReiniciar.setVisible(false);//amaguem
+            botoReiniciar.on("pointerdown",()=> this.scene.restart());//botó reiniciar reinicia
+
+            txtPuntsFinals=this.add.text(730,300,"Aconseguit 0",{font:"70px Impact",fill:"#ffffff"});
+            txtPuntsFinals.setVisible(false);
+
+
             //colisions
 
             this.physics.add.collider(plataformas, jugador); //per crear colisions
             this.physics.add.collider(plataformas, moneder); 
             this.physics.add.overlap(jugador,moneder,this.destruirMonedes,null,this);
             this.physics.add.collider(plataformas, enemics);
+            this.physics.add.collider(enemics, enemics);
+            this.physics.add.overlap(jugador,enemics,this.gameOver,null,this);
+
+
 
 
 
@@ -112,6 +154,8 @@ class pantalla1 extends Phaser.Scene {
     update() {
 
             //control del jugador
+
+            if(gameOver==false){
 
             if(cursors.right.isDown) {
             jugador.setVelocityX(200); //si prems dreta el personatge va dreta
@@ -133,25 +177,22 @@ class pantalla1 extends Phaser.Scene {
             jugador.anims.play("idle",true);
         }
                 
-                
-
-            
-        
-        
         if (cursors.up.isDown && jugador.body.touching.down) { //si premem adalt el jugador salta amb una força de 600
             jugador.setVelocityY(-600);
+            soSalt.play()
         }
+    }
 
 
     }
-
+/// aquesta funció es crida quan se superposen el jugador i la moneda
     destruirMonedes(jugador,sac){
         //moneder.destroy() //destrueix monedes
         sac.disableBody(true,true);//desactiva les monedes
         puntuacio=puntuacio+10; ///suma 10 punts
         console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
-        txtPunts.setText("Puntuació:"+puntuacio)
-
+        txtPunts.setText("Puntuació:"+puntuacio);
+        soMoneda.play();
 
         if (moneder.countActive()===0){
             
@@ -160,6 +201,20 @@ class pantalla1 extends Phaser.Scene {
         
         });
     }
+}
+
+gameOver(){
+    
+    gameOver=true
+    this.physics.pause();
+    finestraOver.setVisible(true)//el fem apareixer
+    botoReiniciar.setVisible(true)
+    botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
+    txtPuntsFinals.setVisible(true); //puntsFinals visible
+    txtPuntsFinals.setText("Aconseguit: "+ puntuacio) //actualitzar el text de puntFinals
+
 
 }
+
+
 }
