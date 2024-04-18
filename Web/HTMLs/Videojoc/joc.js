@@ -21,3 +21,7 @@ var game = new Phaser.Game(config)
 var cursors;
 var jugador;
 var plataformas;
+var moneder;
+var txtPunts;
+var puntuacio;
+var enemics;

@@ -6,11 +6,39 @@ class pantalla1 extends Phaser.Scene {
 
     preload() {
 
-        this.load.image("Fondo", ".//assets/Cartoon_Forest_BG_04.png");//marquem ruta al fons
+        this.load.image("Fondo", ".//assets/Cartoon_Forest_BG_01.png");//marquem ruta al fons
         this.load.image("plataformas", ".//assets/plataforma.png");//marquem ruta al asset
         this.load.spritesheet("jugador", ".//assets/GraveRobber_walk.png", { frameWidth: 48, frameHeight: 48 });//marquem ruta al jugador i acotem
+        this.load.image("moneda", ".//assets/monedes.png");//carreguem i definim nom dels sacs de monedes
+        this.load.spritesheet("enemic", ".//assets/SteamMan_walk.png",{ frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels sacs de monedes
+
     }
     create() {
+        //fons
+        var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
+
+        
+        
+        //marcador
+        txtPunts=this.add.text(100,50,"Puntuacio: 0",{font:"60px Impact",fill:"#ffffff"}); //creacio del marcador
+        puntuacio=0;  //inicia la variable punts a zero
+
+        //enemics
+
+        enemics=this.physics.add.group({   //creem les boses de monedes
+            key:"enemic",//nom de la referencia del preload
+            repeat:2,//quantitat
+            setScale:{x:5, y:5},//ajustem mida
+            setXY:{x:100,y:50,stepX:1200} //diem a on i amb quina freqüència
+
+    })
+
+         enemics.children.iterate(function (enemic){
+            enemic.setSize (22, 40);
+            enemic.setOffset(5,8)
+            
+        })
+
 
         //animacions
 
@@ -26,8 +54,25 @@ class pantalla1 extends Phaser.Scene {
                 frameRate: 10,
                 repeat: -1,
             })
-            //fons
-             var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
+            
+
+
+            /// moneder
+
+            moneder=this.physics.add.group({   //creem les boses de monedes
+                key:"moneda",//nom de la referencia del preload
+                repeat:9,//quantitat
+                setScale:{x:0.4, y:0.4},//ajustem mida
+                setXY:{x:100,y:50,stepX:200} //diem a on i amb quina freqüència
+
+            });
+             ////ordres a tots els fills del grup moneder
+             moneder.children.iterate(function (monedas){
+                monedas.setBounce(0.2)//diem que rebotin
+            });
+             
+
+
 
             //Grups plataformes
             plataformas=this.physics.add.staticGroup();
@@ -55,7 +100,11 @@ class pantalla1 extends Phaser.Scene {
 
             //colisions
 
-            this.physics.add.collider(plataformas, jugador); //per detectar colisions
+            this.physics.add.collider(plataformas, jugador); //per crear colisions
+            this.physics.add.collider(plataformas, moneder); 
+            this.physics.add.overlap(jugador,moneder,this.destruirMonedes,null,this);
+            this.physics.add.collider(plataformas, enemics);
+
 
 
         }
@@ -95,4 +144,22 @@ class pantalla1 extends Phaser.Scene {
 
 
     }
+
+    destruirMonedes(jugador,sac){
+        //moneder.destroy() //destrueix monedes
+        sac.disableBody(true,true);//desactiva les monedes
+        puntuacio=puntuacio+10; ///suma 10 punts
+        console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
+        txtPunts.setText("Puntuació:"+puntuacio)
+
+
+        if (moneder.countActive()===0){
+            
+            moneder.children.iterate(function (monedas){
+                monedas.enableBody(true,monedas.x,10,true,true)
+        
+        });
+    }
+
+}
 }
