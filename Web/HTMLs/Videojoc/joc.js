@@ -6,11 +6,11 @@ var config = {
         width:1920,
         height:1080,
     },
-    physucs:{
+    physics:{
         default:"arcade",
         arcade:{
             gravity:{ y : 800 },
-            debug: false
+            debug: true //veure o no les caixe de colisions
         }
     },
 
@@ -18,3 +18,6 @@ var config = {
 
 }
 var game = new Phaser.Game(config)
+var cursors;
+var jugador;
+var plataformas;
