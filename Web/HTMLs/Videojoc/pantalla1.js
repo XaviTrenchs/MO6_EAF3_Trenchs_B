@@ -8,7 +8,7 @@ class pantalla1 extends Phaser.Scene {
 
         this.load.image("Fondo", ".//assets/Cartoon_Forest_BG_01.png");//marquem ruta al fons
         this.load.image("plataformas", ".//assets/plataforma.png");//marquem ruta al asset
-        this.load.spritesheet("jugador", ".//assets/GraveRobber_walk.png", { frameWidth: 48, frameHeight: 48 });//marquem ruta al jugador i acotem
+        this.load.spritesheet("jugador", ".//assets/Araku_walk.png", { frameWidth: 48, frameHeight: 48 });//marquem ruta al jugador i acotem
         this.load.image("moneda", ".//assets/monedes.png");//carreguem i definim nom dels sacs de monedes
         this.load.spritesheet("enemic", ".//assets/SteamMan_walk.png",{ frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
         this.load.audio("salt",".//audio/JEWS HArp 3.WAV");
