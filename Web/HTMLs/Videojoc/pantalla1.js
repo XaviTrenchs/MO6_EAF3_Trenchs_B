@@ -1,7 +1,7 @@
 class pantalla1 extends Phaser.Scene {
 
     constructor() {
-        super("nivell1");// mom de l'escena
+        super("nivell1p");// mom de l'escena
     }
 
     preload() {
@@ -13,27 +13,29 @@ class pantalla1 extends Phaser.Scene {
         this.load.spritesheet("enemic", ".//assets/Malo_walk.png", { frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
         this.load.audio("salt", ".//audio/JEWS HArp 3.mp3");
         this.load.audio("pick", ".//audio/PICK UP.mp3");
-        this.load.audio("ambient",".//audio/Densities.mp3");
+        this.load.audio("ambient", ".//audio/Densities.mp3");
         this.load.image("botoRetry", ".//assets/Reintentar.png");//carreguem i definim botó reiniciar
         this.load.image("Final", ".//assets/GameOver.png");//carreguem i definim pantalla Game Over
-        this.load.image("Disparo",".//assets/bala.png");
+        this.load.image("Disparo", ".//assets/bala.png");
 
 
 
     }
     create() {
-        
-        gameOver = false;  
+
+        gameOver = false;
 
         
-        
-        
+
+
+
+
         //audios
         soAmbient = this.sound.add("ambient");
         soMoneda = this.sound.add("pick");
         soSalt = this.sound.add("salt");
         soAmbient.play();
-        
+
 
         //fons
         var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
@@ -92,7 +94,7 @@ class pantalla1 extends Phaser.Scene {
 
         });
         ////ordres a tots els fills del grup moneder
-        
+
         moneder.children.iterate(function (monedas) {
             monedas.setBounce(0.2)//diem que rebotin
         });
@@ -127,9 +129,9 @@ class pantalla1 extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();// li indiquem que farem sevir tecles
 
 
-        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        
+
 
         //botons
 
@@ -166,7 +168,7 @@ class pantalla1 extends Phaser.Scene {
 
         if (gameOver == false) {
 
-            
+
 
             if (cursors.right.isDown) {
                 jugador.setVelocityX(200); //si prems dreta el personatge va dreta
@@ -193,47 +195,47 @@ class pantalla1 extends Phaser.Scene {
                 jugador.setVelocityY(-600);
                 soSalt.play()
             }
-            
 
-            
-                
-            
+
+
+
+
         }
 
 
     }
-    /// aquesta funció es crida quan se superposen el jugador i la moneda
+ /// aquesta funció es crida quan se superposen el jugador i la moneda
     destruirMonedes(jugador, sac) {
 
-        //moneder.destroy() //destrueix monedes
-        sac.disableBody(true, true);//desactiva les monedes
-        puntuacio = puntuacio + 10; ///suma 10 punts
-        console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
-        txtPunts.setText("Puntuació:" + puntuacio);
-        soMoneda.play();
+    //moneder.destroy() //destrueix monedes
+    sac.disableBody(true, true);//desactiva les monedes
+    puntuacio = puntuacio + 10; ///suma 10 punts
+    console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
+    txtPunts.setText("Puntuació:" + puntuacio);
+    soMoneda.play();
 
-        if (moneder.countActive() === 0) {
+    if (moneder.countActive() === 0) {
 
-            moneder.children.iterate(function (monedas) {
-                monedas.enableBody(true, monedas.x, 10, true, true)
+        moneder.children.iterate(function (monedas) {
+            monedas.enableBody(true, monedas.x, 10, true, true)
 
-            });
-        }
+        });
     }
+}
 
-    gameOver() {
+gameOver() {
 
-        gameOver = true
-        jugador.setTint(0xff0000);
-        this.physics.pause();
-        finestraOver.setVisible(true)//el fem apareixer
-        botoReiniciar.setVisible(true)
-        botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
-        txtPuntsFinals.setVisible(true); //puntsFinals visible
-        txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntFinals
+    gameOver = true
+    jugador.setTint(0xff0000);
+    this.physics.pause();
+    finestraOver.setVisible(true)//el fem apareixer
+    botoReiniciar.setVisible(true)
+    botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
+    txtPuntsFinals.setVisible(true); //puntsFinals visible
+    txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntFinals
 
 
-    }
+}
 
 
 }
