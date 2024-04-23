@@ -11,27 +11,23 @@ class pantalla1 extends Phaser.Scene {
         this.load.spritesheet("jugador", ".//assets/Araku_poses.png", { frameWidth: 200, frameHeight: 200 });//marquem ruta al jugador i acotem
         this.load.image("moneda", ".//assets/monedes.png");//carreguem i definim nom dels sacs de monedes
         this.load.spritesheet("enemic", ".//assets/Malo_walk.png", { frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
-        this.load.audio("salt", ".//audio/JEWS HArp 3.WAV");
-        this.load.audio("pick", ".//audio/PICK UP.WAV");
+        this.load.audio("salt", ".//audio/JEWS HArp 3.mp3");
+        this.load.audio("pick", ".//audio/PICK UP.mp3");
         this.load.audio("ambient",".//audio/Densities.mp3");
         this.load.image("botoRetry", ".//assets/Reintentar.png");//carreguem i definim botó reiniciar
         this.load.image("Final", ".//assets/GameOver.png");//carreguem i definim pantalla Game Over
-        
+        this.load.image("Disparo",".//assets/bala.png");
 
 
 
     }
     create() {
-        gameOver = false;
+        
+        gameOver = false;  
 
-        //el mapa
         
         
         
-
-       
-        
-
         //audios
         soAmbient = this.sound.add("ambient");
         soMoneda = this.sound.add("pick");
@@ -130,6 +126,11 @@ class pantalla1 extends Phaser.Scene {
         //teclas
         cursors = this.input.keyboard.createCursorKeys();// li indiquem que farem sevir tecles
 
+
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE); 
+
+        
+
         //botons
 
         finestraOver = this.add.image(920, 540, "Final");
@@ -165,6 +166,8 @@ class pantalla1 extends Phaser.Scene {
 
         if (gameOver == false) {
 
+            
+
             if (cursors.right.isDown) {
                 jugador.setVelocityX(200); //si prems dreta el personatge va dreta
                 jugador.anims.play("caminar", true);
@@ -186,16 +189,22 @@ class pantalla1 extends Phaser.Scene {
                 jugador.anims.play("idle", true);
             }
 
-            if (cursors.up.isDown && jugador.body.touching.down) { //si premem adalt el jugador salta amb una força de 600
+            if (cursors.up.isDown && jugador.body.touching.down) { //si premem adalt sense tocar terra el jugador salta amb una força de 600
                 jugador.setVelocityY(-600);
                 soSalt.play()
             }
+            
+
+            
+                
+            
         }
 
 
     }
     /// aquesta funció es crida quan se superposen el jugador i la moneda
     destruirMonedes(jugador, sac) {
+
         //moneder.destroy() //destrueix monedes
         sac.disableBody(true, true);//desactiva les monedes
         puntuacio = puntuacio + 10; ///suma 10 punts
