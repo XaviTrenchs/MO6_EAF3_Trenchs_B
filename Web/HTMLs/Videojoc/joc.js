@@ -10,7 +10,7 @@ var config = {
         default:"arcade",
         arcade:{
             gravity:{ y : 800 },
-            debug: true //veure o no les caixe de colisions
+            debug: false //veure o no les caixe de colisions
         }
     },
 
@@ -28,6 +28,7 @@ var puntuacio;
 var enemics;
 var soSalt;
 var soMoneda;
+var soAmbient;
 var botoReiniciar;
 var finestraOver;
 var gameOver;

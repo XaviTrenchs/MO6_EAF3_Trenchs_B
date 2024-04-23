@@ -10,12 +10,13 @@ class pantalla1 extends Phaser.Scene {
         this.load.image("plataformas", ".//assets/sprites/plataforma.png");//marquem ruta al asset
         this.load.spritesheet("jugador", ".//assets/Araku_poses.png", { frameWidth: 200, frameHeight: 200 });//marquem ruta al jugador i acotem
         this.load.image("moneda", ".//assets/monedes.png");//carreguem i definim nom dels sacs de monedes
-        this.load.spritesheet("enemic", ".//assets/SteamMan_walk.png", { frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
+        this.load.spritesheet("enemic", ".//assets/Malo_walk.png", { frameWidth: 48, frameHeight: 48 });//carreguem i definim nom dels enemics
         this.load.audio("salt", ".//audio/JEWS HArp 3.WAV");
         this.load.audio("pick", ".//audio/PICK UP.WAV");
         this.load.audio("ambient",".//audio/Densities.mp3");
         this.load.image("botoRetry", ".//assets/Reintentar.png");//carreguem i definim botó reiniciar
         this.load.image("Final", ".//assets/GameOver.png");//carreguem i definim pantalla Game Over
+        
 
 
 
@@ -23,14 +24,24 @@ class pantalla1 extends Phaser.Scene {
     create() {
         gameOver = false;
 
-        //audios
+        //el mapa
+        
+        
+        
 
+       
+        
+
+        //audios
+        soAmbient = this.sound.add("ambient");
         soMoneda = this.sound.add("pick");
         soSalt = this.sound.add("salt");
+        soAmbient.play();
         
 
         //fons
         var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
+
 
 
 
@@ -69,7 +80,7 @@ class pantalla1 extends Phaser.Scene {
         this.anims.create({
             key: "caminar",
             frames: this.anims.generateFrameNumbers("jugador", { stard: 2, end: 9 }),
-            frameRate: 10,
+            frameRate: 10,//velocitat de fotograma
             repeat: -1,
         })
 
@@ -85,6 +96,7 @@ class pantalla1 extends Phaser.Scene {
 
         });
         ////ordres a tots els fills del grup moneder
+        
         moneder.children.iterate(function (monedas) {
             monedas.setBounce(0.2)//diem que rebotin
         });
@@ -139,7 +151,7 @@ class pantalla1 extends Phaser.Scene {
         this.physics.add.overlap(jugador, moneder, this.destruirMonedes, null, this);
         this.physics.add.collider(plataformas, enemics);
         this.physics.add.collider(enemics, enemics);
-        this.physics.add.overlap(jugador, enemics, this.gameOver, null, this);
+        this.physics.add.overlap(jugador, enemics, this.gameOver, null, this,);
 
 
 
@@ -203,6 +215,7 @@ class pantalla1 extends Phaser.Scene {
     gameOver() {
 
         gameOver = true
+        jugador.setTint(0xff0000);
         this.physics.pause();
         finestraOver.setVisible(true)//el fem apareixer
         botoReiniciar.setVisible(true)

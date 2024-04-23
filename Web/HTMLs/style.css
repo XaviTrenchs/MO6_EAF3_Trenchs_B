@@ -53,6 +53,9 @@
         color:white;}
         
       #contenido{
+        display:flex;
+        justify-content: center;
+        align-items: center;
         float:left;
         background:  rgb(26, 26, 44);
         text-align: center;
