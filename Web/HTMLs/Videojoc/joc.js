@@ -32,3 +32,4 @@ var soAmbient;
 var botoReiniciar;
 var finestraOver;
 var gameOver;
+var disparo;
