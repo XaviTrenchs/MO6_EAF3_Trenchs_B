@@ -57,7 +57,7 @@ class pantalla1 extends Phaser.Scene {
         })
 
         enemics.children.iterate(function (enemic) {
-            enemic.setSize(22, 38) ; //mida de la caixa
+            enemic.setSize(22, 38); //mida de la caixa
             enemic.setOffset(5, 10); //offset de la caixa
             enemic.setBounce(1);//rebot
             enemic.setVelocityX(30);//velocitat
@@ -122,7 +122,7 @@ class pantalla1 extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();// li indiquem que farem sevir tecles
 
 
-        
+
         //botons
 
         finestraOver = this.add.image(920, 540, "Final"); //finestra GAmeOver que de moment resta invisible
@@ -145,7 +145,7 @@ class pantalla1 extends Phaser.Scene {
         this.physics.add.collider(plataformas, enemics);
         this.physics.add.collider(enemics, enemics);
         this.physics.add.overlap(jugador, enemics, this.gameOver, null, this,);
-        this.physics.add.overlap(enemics, disparos, this.destruirEnemic,null,this);//pretenia destruir enemics en col.lidir amb la bala però no funciona
+        this.physics.add.overlap(enemics, disparos, this.destruirEnemic, null, this);//pretenia destruir enemics en col.lidir amb la bala però no funciona
 
 
 
@@ -194,47 +194,47 @@ class pantalla1 extends Phaser.Scene {
 
     }
 
-    destruirEnemic(disparos,enemics){// volia definir una funció per fer desapareixer els enemics, suposso que a la Uf6
-        enemics.disableBody(true,true);
+    destruirEnemic(disparos, enemics) {// volia definir una funció per fer desapareixer els enemics, suposso que a la Uf6
+        enemics.disableBody(true, true);
     }
     /// aquesta funció es crida quan se superposen el jugador i la moneda
     destruirMonedes(jugador, sac) {
 
-        
+
         sac.disableBody(true, true);//desactiva la bossa de monedes
         puntuacio = puntuacio + 10; ///suma 10 punts
         console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
-        txtPunts.setText("Puntuació:" + puntuacio);
+        txtPunts.setText("Puntuació:" + puntuacio);//s'actualitza la puntuació
         soMoneda.play();
 
-        
+
     }
     disparar() {
-        let speedX = 400; //direcció i força de la bala
+        let speed = 400; //direcció i força de la bala
         if (jugador.flipX == true) { // aquesta condició la creem per a que el personatge dispari en la direcció que està mirant
-            speedX *= -1; //això dona la direcció de la bala
-            
+            speed *= -1; //això dona la direcció de la bala
+
         }
 
-        disparos = this.physics.add.image(jugador.x, jugador.y, "Disparo"); // origen al jugador
-        disparos.body.setAllowGravity(false); //treiem gravetat per que no caigui la
-        disparos.setVelocityX(speedX); //velocitat en X
-        disparos.setSize(30, 30); //modeifiquem la hitbox
+        disparos = this.physics.add.image(jugador.x, jugador.y, "Disparo"); // la bala es crea te origen al jugador
+        disparos.body.setAllowGravity(false); //treiem gravetat per que no caigui la bala
+        disparos.setVelocityX(speed); //definim speed com a velocitat en X
+        disparos.setSize(30, 30); //ajustar la caixa
         disparos.setScale(1);// per fer proves he tocat la mida; al principi no el veia perque es generava al origen
-        soBala.play();
+        soBala.play();//el so del disparo
     }
 
 
     gameOver() {
 
-        gameOver = true
-        jugador.setTint(0xff0000);
-        this.physics.pause();
+        gameOver = true//quan es dona Game Over
+        jugador.setTint(0xff0000);//teñim al jugador
+        this.physics.pause();//pausem el joc
         finestraOver.setVisible(true)// fem apareixer la finestra GAME OVER
         botoReiniciar.setVisible(true)//fem apareixer el botó reiniciar
         botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
         txtPuntsFinals.setVisible(true); //puntsFinals visible
-        txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntFinals
+        txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntsFinals
 
 
     }
