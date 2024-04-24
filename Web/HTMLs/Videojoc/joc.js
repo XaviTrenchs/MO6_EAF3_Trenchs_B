@@ -29,6 +29,7 @@ var enemics;
 var soSalt;
 var soMoneda;
 var soAmbient;
+var soBala;
 var botoReiniciar;
 var finestraOver;
 var gameOver;

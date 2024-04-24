@@ -14,6 +14,7 @@ class pantalla1 extends Phaser.Scene {
         this.load.audio("salt", ".//audio/JEWS HArp 3.mp3");
         this.load.audio("pick", ".//audio/PICK UP.mp3");
         this.load.audio("ambient", ".//audio/Densities.mp3");
+        this.load.audio("Balazo", ".//audio/Balazo.mp3");
         this.load.image("botoRetry", ".//assets/Reintentar.png");//carreguem i definim botó reiniciar
         this.load.image("Final", ".//assets/GameOver.png");//carreguem i definim pantalla Game Over
         this.load.image("Disparo", ".//assets/bala.png");
@@ -29,6 +30,7 @@ class pantalla1 extends Phaser.Scene {
         soAmbient = this.sound.add("ambient");
         soMoneda = this.sound.add("pick");
         soSalt = this.sound.add("salt");
+        soBala = this.sound.add("Balazo");
         soAmbient.play();
 
         //tiroteo
@@ -49,14 +51,14 @@ class pantalla1 extends Phaser.Scene {
         enemics = this.physics.add.group({   //creem les boses de monedes
             key: "enemic",//nom de la referencia del preload
             repeat: 2,//quantitat de repeticions
-            setScale: { x: 5, y: 5 },//ajustem mida
+            setScale: { x: 4, y: 4 },//ajustem mida
             setXY: { x: 100, y: 50, stepX: 1200 } //diem a on i amb quina freqüència
 
         })
 
         enemics.children.iterate(function (enemic) {
-            enemic.setSize(22, 40); //mida de la caixa
-            enemic.setOffset(5, 8); //offset de la caixa
+            enemic.setSize(22, 38) ; //mida de la caixa
+            enemic.setOffset(5, 10); //offset de la caixa
             enemic.setBounce(1);//rebot
             enemic.setVelocityX(30);//velocitat
             enemic.setCollideWorldBounds()// chocan amb els limits
@@ -66,11 +68,11 @@ class pantalla1 extends Phaser.Scene {
 
         //animacions
 
-        this.anims.create({
+        this.anims.create({ //creem animacions
             key: "idle",//nom de l'animació
-            frames: this.anims.generateFrameNumbers("jugador", { stard: 0, end: 1 }),// fotogrames que implica
+            frames: this.anims.generateFrameNumbers("jugador", { stard: 0, end: 1 }),// fotogrames que implica del spritesheet
             frameRate: 2,//velocitat
-            repeat: -1,//repeticions (-1vol dir infinitament)
+            repeat: -1,//repeticions (-1 vol dir infinitament)
         })
         this.anims.create({
             key: "caminar",
@@ -102,18 +104,12 @@ class pantalla1 extends Phaser.Scene {
         //Grups plataformes
         plataformas = this.physics.add.staticGroup();
         plataformas.create(200, 500, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma escalats i amb la caixa escalada i colocada
-
         plataformas.create(300, 600, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma escalats i amb la caixa escalada i colocada
-
         plataformas.create(600, 750, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma escalats i amb la caixa escalada i colocada
-
         plataformas.create(1000, 800, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma
-
         plataformas.create(700, 400, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma
-
         plataformas.create(1500, 800, "plataformas").setScale(1).setSize(200, 25);//fills de plataforma
-
-        plataformas.create(960, 1000, "plataformas").setScale(20, 1).setSize(1920, 25).setOffset(-960, 0);//fills de plataforma
+        plataformas.create(960, 1000, "plataformas").setScale(20, 1).setSize(1920, 25).setOffset(-960, 0);//plataforma escalada que fa de terra
 
         //jugador
         jugador = this.physics.add.sprite(1100, 500, "jugador");//afegim el jugador a la escena
@@ -129,26 +125,27 @@ class pantalla1 extends Phaser.Scene {
         
         //botons
 
-        finestraOver = this.add.image(920, 540, "Final");
+        finestraOver = this.add.image(920, 540, "Final"); //finestra GAmeOver que de moment resta invisible
         finestraOver.setScale(1.3);
         finestraOver.setVisible(false);//amaguem
 
-        botoReiniciar = this.add.image(920, 740, "botoRetry");
+        botoReiniciar = this.add.image(920, 740, "botoRetry");//botó reintentar amagat fins a GameOver
         botoReiniciar.setVisible(false);//amaguem
-        botoReiniciar.on("pointerdown", () => this.scene.restart());//botó reiniciar reinicia
+        botoReiniciar.on("pointerdown", () => this.scene.restart());//botó reiniciar que reinicia l'escena
 
-        txtPuntsFinals = this.add.text(730, 300, "Aconseguit 0", { font: "70px Impact", fill: "#ffffff" });
+        txtPuntsFinals = this.add.text(730, 300, "Aconseguit 0", { font: "70px Impact", fill: "#ffffff" });//text amb els punts finals
         txtPuntsFinals.setVisible(false);
 
 
         //colisions
 
-        this.physics.add.collider(plataformas, jugador); //per crear colisions
+        this.physics.add.collider(plataformas, jugador); //per crear colisions entre dos variables
         this.physics.add.collider(plataformas, moneder);
-        this.physics.add.overlap(jugador, moneder, this.destruirMonedes, null, this);
+        this.physics.add.overlap(jugador, moneder, this.destruirMonedes, null, this);//colisions
         this.physics.add.collider(plataformas, enemics);
         this.physics.add.collider(enemics, enemics);
         this.physics.add.overlap(jugador, enemics, this.gameOver, null, this,);
+        this.physics.add.overlap(enemics, disparos, this.destruirEnemic,null,this);//pretenia destruir enemics en col.lidir amb la bala però no funciona
 
 
 
@@ -197,37 +194,34 @@ class pantalla1 extends Phaser.Scene {
 
     }
 
-
+    destruirEnemic(disparos,enemics){// volia definir una funció per fer desapareixer els enemics, suposso que a la Uf6
+        enemics.disableBody(true,true);
+    }
     /// aquesta funció es crida quan se superposen el jugador i la moneda
     destruirMonedes(jugador, sac) {
 
-        //moneder.destroy() //destrueix monedes
-        sac.disableBody(true, true);//desactiva les monedes
+        
+        sac.disableBody(true, true);//desactiva la bossa de monedes
         puntuacio = puntuacio + 10; ///suma 10 punts
         console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
         txtPunts.setText("Puntuació:" + puntuacio);
         soMoneda.play();
 
-        if (moneder.countActive() === 0) {
-
-            moneder.children.iterate(function (monedas) {
-                monedas.enableBody(true, monedas.x, 10, true, true)
-
-            });
-        }
+        
     }
     disparar() {
-        let velocitatX = 400; //velocitat de la bala en l'eix X
+        let speedX = 400; //direcció i força de la bala
         if (jugador.flipX == true) { // aquesta condició la creem per a que el personatge dispari en la direcció que està mirant
-            velocitatX *= -1; //això dona la direcció de la bala
+            speedX *= -1; //això dona la direcció de la bala
             
         }
 
-        disparos = this.physics.add.image(jugador.x, jugador.y, "Disparo"); //des d'on volem que surti la bala
-        disparos.body.setAllowGravity(false); //per a ingnorar la gravetat i que surti en linea recta
-        disparos.setVelocityX(velocitatX); //velocitat en X
-        disparos.setSize(10, 10); //modeifiquem la hitbox
-        disparos.setScale(1);
+        disparos = this.physics.add.image(jugador.x, jugador.y, "Disparo"); // origen al jugador
+        disparos.body.setAllowGravity(false); //treiem gravetat per que no caigui la
+        disparos.setVelocityX(speedX); //velocitat en X
+        disparos.setSize(30, 30); //modeifiquem la hitbox
+        disparos.setScale(1);// per fer proves he tocat la mida; al principi no el veia perque es generava al origen
+        soBala.play();
     }
 
 
