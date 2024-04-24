@@ -23,11 +23,11 @@ class pantalla1 extends Phaser.Scene {
     }
     create() {
 
+        {class  Dis}
+
         gameOver = false;
 
         
-
-
 
 
         //audios
@@ -164,7 +164,7 @@ class pantalla1 extends Phaser.Scene {
 
     update() {
 
-        //control del jugador
+         //control del jugador
 
         if (gameOver == false) {
 
@@ -204,8 +204,12 @@ class pantalla1 extends Phaser.Scene {
 
 
     }
- /// aquesta funció es crida quan se superposen el jugador i la moneda
-    destruirMonedes(jugador, sac) {
+
+
+
+
+/// aquesta funció es crida quan se superposen el jugador i la moneda
+destruirMonedes(jugador, sac) {
 
     //moneder.destroy() //destrueix monedes
     sac.disableBody(true, true);//desactiva les monedes
