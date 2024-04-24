@@ -10,7 +10,7 @@ var config = {
         default:"arcade",
         arcade:{
             gravity:{ y : 800 },
-            debug: false //veure o no les caixe de colisions
+            debug: true //veure o no les caixe de colisions
         }
     },
 

@@ -23,12 +23,7 @@ class pantalla1 extends Phaser.Scene {
     }
     create() {
 
-        {class  Dis}
-
         gameOver = false;
-
-        
-
 
         //audios
         soAmbient = this.sound.add("ambient");
@@ -36,11 +31,13 @@ class pantalla1 extends Phaser.Scene {
         soSalt = this.sound.add("salt");
         soAmbient.play();
 
+        //tiroteo
+
+        this.input.keyboard.on('keydown-SPACE', this.disparar, this);// indicar la tecla usada per disparar
+
 
         //fons
         var fondo = this.add.image(960, 540, "Fondo");//crear i posicionar el fons
-
-
 
 
         //marcador
@@ -51,18 +48,18 @@ class pantalla1 extends Phaser.Scene {
 
         enemics = this.physics.add.group({   //creem les boses de monedes
             key: "enemic",//nom de la referencia del preload
-            repeat: 2,//quantitat
+            repeat: 2,//quantitat de repeticions
             setScale: { x: 5, y: 5 },//ajustem mida
             setXY: { x: 100, y: 50, stepX: 1200 } //diem a on i amb quina freqüència
 
         })
 
         enemics.children.iterate(function (enemic) {
-            enemic.setSize(22, 40);
-            enemic.setOffset(5, 8);
-            enemic.setBounce(1);
-            enemic.setVelocityX(30);
-            enemic.setCollideWorldBounds()
+            enemic.setSize(22, 40); //mida de la caixa
+            enemic.setOffset(5, 8); //offset de la caixa
+            enemic.setBounce(1);//rebot
+            enemic.setVelocityX(30);//velocitat
+            enemic.setCollideWorldBounds()// chocan amb els limits
 
         })
 
@@ -129,10 +126,7 @@ class pantalla1 extends Phaser.Scene {
         cursors = this.input.keyboard.createCursorKeys();// li indiquem que farem sevir tecles
 
 
-        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-
-
+        
         //botons
 
         finestraOver = this.add.image(920, 540, "Final");
@@ -164,7 +158,7 @@ class pantalla1 extends Phaser.Scene {
 
     update() {
 
-         //control del jugador
+        //control del jugador
 
         if (gameOver == false) {
 
@@ -198,48 +192,58 @@ class pantalla1 extends Phaser.Scene {
 
 
 
-
-
         }
 
 
     }
 
 
+    /// aquesta funció es crida quan se superposen el jugador i la moneda
+    destruirMonedes(jugador, sac) {
 
+        //moneder.destroy() //destrueix monedes
+        sac.disableBody(true, true);//desactiva les monedes
+        puntuacio = puntuacio + 10; ///suma 10 punts
+        console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
+        txtPunts.setText("Puntuació:" + puntuacio);
+        soMoneda.play();
 
-/// aquesta funció es crida quan se superposen el jugador i la moneda
-destruirMonedes(jugador, sac) {
+        if (moneder.countActive() === 0) {
 
-    //moneder.destroy() //destrueix monedes
-    sac.disableBody(true, true);//desactiva les monedes
-    puntuacio = puntuacio + 10; ///suma 10 punts
-    console.log(puntuacio);//si monedas a zero torna a crear 10 monedes
-    txtPunts.setText("Puntuació:" + puntuacio);
-    soMoneda.play();
+            moneder.children.iterate(function (monedas) {
+                monedas.enableBody(true, monedas.x, 10, true, true)
 
-    if (moneder.countActive() === 0) {
-
-        moneder.children.iterate(function (monedas) {
-            monedas.enableBody(true, monedas.x, 10, true, true)
-
-        });
+            });
+        }
     }
-}
+    disparar() {
+        let velocitatX = 400; //velocitat de la bala en l'eix X
+        if (jugador.flipX == true) { // aquesta condició la creem per a que el personatge dispari en la direcció que està mirant
+            velocitatX *= -1; //això dona la direcció de la bala
+            
+        }
 
-gameOver() {
-
-    gameOver = true
-    jugador.setTint(0xff0000);
-    this.physics.pause();
-    finestraOver.setVisible(true)//el fem apareixer
-    botoReiniciar.setVisible(true)
-    botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
-    txtPuntsFinals.setVisible(true); //puntsFinals visible
-    txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntFinals
+        disparos = this.physics.add.image(jugador.x, jugador.y, "Disparo"); //des d'on volem que surti la bala
+        disparos.body.setAllowGravity(false); //per a ingnorar la gravetat i que surti en linea recta
+        disparos.setVelocityX(velocitatX); //velocitat en X
+        disparos.setSize(10, 10); //modeifiquem la hitbox
+        disparos.setScale(1);
+    }
 
 
-}
+    gameOver() {
+
+        gameOver = true
+        jugador.setTint(0xff0000);
+        this.physics.pause();
+        finestraOver.setVisible(true)// fem apareixer la finestra GAME OVER
+        botoReiniciar.setVisible(true)//fem apareixer el botó reiniciar
+        botoReiniciar.setInteractive() //convertim la imatge en boto interactiu
+        txtPuntsFinals.setVisible(true); //puntsFinals visible
+        txtPuntsFinals.setText("Aconseguit: " + puntuacio) //actualitzar el text de puntFinals
+
+
+    }
 
 
 }
