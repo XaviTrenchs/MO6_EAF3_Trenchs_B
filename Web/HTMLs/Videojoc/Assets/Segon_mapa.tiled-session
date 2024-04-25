@@ -1,0 +1,58 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "tmw_desert_spacing.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/A-IOC 3D/Modul 6 Multimedia/EAF3_10abril/Web/HTMLs/Videojoc/Assets/MapaNivell1.json": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1091,
+                "y": 386
+            }
+        },
+        "objectes_mapa.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "segonMapa.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 582.5,
+                "y": 370
+            }
+        },
+        "tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "E:/A-IOC 3D/Modul 6 Multimedia/EAF3_10abril/Web/HTMLs/Videojoc/Assets",
+    "last.imagePath": "E:/A-IOC 3D/Modul 6 Multimedia/EAF3_10abril/Web/HTMLs/Videojoc/Assets",
+    "map.height": 120,
+    "map.lastUsedExportFilter": "Archivos CSV (*.csv)",
+    "map.lastUsedFormat": "json",
+    "map.width": 192,
+    "openFiles": [
+        "E:/A-IOC 3D/Modul 6 Multimedia/EAF3_10abril/Web/HTMLs/Videojoc/Assets/MapaNivell1.json",
+        "tmw_desert_spacing.tsx"
+    ],
+    "project": "Segon_mapa.tiled-project",
+    "recentFiles": [
+        "E:/A-IOC 3D/Modul 6 Multimedia/EAF3_10abril/Web/HTMLs/Videojoc/Assets/MapaNivell1.json",
+        "tmw_desert_spacing.tsx",
+        "objectes_mapa.tsx",
+        "segonMapa.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 0
+}
